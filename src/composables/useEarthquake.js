@@ -83,7 +83,7 @@ export function useEarthquake() {
   const isLoading   = ref(false)
   const error       = ref(null)
   const lastUpdate  = ref('')
-  const apiKey      = ref('請在此處替換為您的_API_KEY')    // CWA API 授權碼
+  const apiKey      = ref('CWA-D22BDB3E-7E07-4F5D-803C-8277F122252A')    // 請在此處直接填入您實際的 CWA API 授權碼
 
   // 所有地震合併（顯著 + 小區域），依時間排序
   const allQuakes = computed(() => {
@@ -153,10 +153,6 @@ export function useEarthquake() {
 
   // ── 呼叫 CWA API ──────────────────────────────────────────────
   async function fetchDataset(datasetId, limit = 20) {
-    if (!apiKey.value.trim() || apiKey.value === '請在此處替換為您的_API_KEY') {
-      throw new Error('請先於程式碼 useEarthquake.js 中填入中央氣象署 API Key')
-    }
-
     const url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/' + datasetId
       + '?Authorization=' + encodeURIComponent(apiKey.value.trim())
       + '&format=JSON'
@@ -173,11 +169,6 @@ export function useEarthquake() {
 
   // ── 載入所有地震資料 ──────────────────────────────────────────
   async function load() {
-    if (!apiKey.value.trim() || apiKey.value === '請在此處替換為您的_API_KEY') {
-      error.value = '請先於程式碼 useEarthquake.js 中填入中央氣象署 API Key'
-      return
-    }
-
     isLoading.value = true
     error.value     = null
 
